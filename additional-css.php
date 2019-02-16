@@ -47,15 +47,6 @@ function ac_additional_css_to_classic_editor( $mce_init ) {
 	$css_to_array = new AC_CSS_To_Array( $css );
 	$css = $css_to_array->get();
 
-	foreach ( $css as $key => $css_block ) {
-		$selectors = $css_block->get_selectors();
-		foreach ( $selectors as $i => $selector ) {
-			$selectors[ $i ] = $selector;
-		}
-		$css_block->set_selectors( $selectors );
-		$css[ $key ] = $css_block;
-	}
-
 	$new_css = '';
 	foreach ( $css as $key => $css_block ) {
 		$new_css .= $css_block->get_inline_css();
@@ -65,7 +56,7 @@ function ac_additional_css_to_classic_editor( $mce_init ) {
 		$mce_init['content_style'] = '';
 	}
 
-	$mce_init['content_style'] .= $new_css;
+	$mce_init['content_style'] .= addslashes( $new_css );
 	return $mce_init;
 }
 
